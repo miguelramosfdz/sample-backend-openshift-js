@@ -41,6 +41,12 @@ var SampleApp = function() {
             res.setHeader('Content-Type', 'text/html');
             res.send(self.index);
         });
+        self.app.get('/notifications', function(req, res) {
+            res.setHeader('Content-Type', 'text/html');
+            Notification.find().lean().exec(function(err, notifications) {
+                res.end(JSON.stringify(notifications));
+            });
+        });
     };
 
     self.initialize = function() {
