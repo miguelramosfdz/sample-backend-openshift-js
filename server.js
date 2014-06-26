@@ -33,20 +33,12 @@ var SampleApp = function() {
         });
     };
 
-    self.createRoutes = function() {
-        self.routes = { };
-        self.routes['/'] = function(req, res) {
+    self.initializeServer = function() {
+        self.app = express();
+        self.app.get('/', function(req, res) {
             res.setHeader('Content-Type', 'text/html');
             res.send(fs.readFile('index.html'));
-        };
-    };
-
-    self.initializeServer = function() {
-        self.createRoutes();
-        self.app = express.createServer();
-        for (var r in self.routes) {
-            self.app.get(r, self.routes[r]);
-        }
+        });
     };
 
     self.initialize = function() {
@@ -65,10 +57,7 @@ var SampleApp = function() {
 
 
 
-/**
- *  main():  Main code.
- */
-var zapp = new SampleApp();
-zapp.initialize();
-zapp.start();
+var sample = new SampleApp();
+sample.initialize();
+sample.start();
 
