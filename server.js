@@ -34,10 +34,12 @@ var SampleApp = function() {
     };
 
     self.initializeServer = function() {
+        self.index = fs.readFile('index.html');
+        console.log(self.index);
         self.app = express();
         self.app.get('/', function(req, res) {
             res.setHeader('Content-Type', 'text/html');
-            res.send(fs.readFile('index.html'));
+            res.send(self.index);
         });
     };
 
