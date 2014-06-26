@@ -35,7 +35,7 @@ var SampleApp = function() {
 
     self.initializeServer = function() {
         self.index = fs.readFileSync('index.html');
-        console.log(self.index);
+
         self.app = express();
         self.app.get('/', function(req, res) {
             res.setHeader('Content-Type', 'text/html');
@@ -45,6 +45,12 @@ var SampleApp = function() {
             res.setHeader('Content-Type', 'text/html');
             Notification.find().lean().exec(function(err, notifications) {
                 res.end(JSON.stringify(notifications));
+            });
+        });
+        self.app.post('/notify', function(req, res) {
+            res.setHeader('Content-Type', 'text/html');
+            (new Notification({time: (new Date()).toString(), text: req.param('text', null)})).save(function(err, notification){
+              if(err) { res.end('OK'); } else { res.end('OK'); };
             });
         });
     };
