@@ -1,7 +1,7 @@
 #!/bin/env node
 
-var express = require('express');
-var fs      = require('fs');
+var express  = require('express');
+var fs       = require('fs');
 var mongoose = require('mongoose');
 
 mongoose.connect(process.env.OPENSHIFT_MONGODB_DB_URL);
@@ -34,7 +34,7 @@ var SampleApp = function() {
     };
 
     self.initializeServer = function() {
-        self.index = fs.readFile('index.html');
+        self.index = fs.readFileSync('index.html');
         console.log(self.index);
         self.app = express();
         self.app.get('/', function(req, res) {
